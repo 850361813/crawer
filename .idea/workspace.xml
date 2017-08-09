@@ -2,20 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4014170e-fac1-4ada-8656-8985e1c017b3" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/README" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/db.sql" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ebay/config.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ebay/fetch_web_task.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ebay/update_db_task.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/test_dinamic.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/test_global.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/url_pager.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/ebay/ebay_crawer.py" afterPath="$PROJECT_DIR$/ebay/ebay_crawer_task.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/conf/app.conf" afterPath="$PROJECT_DIR$/conf/app.conf" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dao/house_info_dao.py" afterPath="$PROJECT_DIR$/dao/house_info_dao.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/http/http_fetcher.py" afterPath="$PROJECT_DIR$/http/http_fetcher.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/redemo.py" afterPath="$PROJECT_DIR$/test/redemo.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/README" afterPath="$PROJECT_DIR$/doc/README" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -156,8 +143,8 @@
       <file leaf-file-name="README" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/doc/README">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="21" column="11" lean-forward="true" selection-start-line="21" selection-start-column="11" selection-end-line="21" selection-end-column="11" />
+            <state relative-caret-position="406">
+              <caret line="24" column="18" lean-forward="true" selection-start-line="24" selection-start-column="18" selection-end-line="24" selection-end-column="18" />
               <folding />
             </state>
           </provider>
@@ -699,7 +686,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14837712" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.071097374" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39721793" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1051,8 +1038,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/doc/README">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="11" lean-forward="true" selection-start-line="21" selection-start-column="11" selection-end-line="21" selection-end-column="11" />
+        <state relative-caret-position="406">
+          <caret line="24" column="18" lean-forward="true" selection-start-line="24" selection-start-column="18" selection-end-line="24" selection-end-column="18" />
           <folding />
         </state>
       </provider>

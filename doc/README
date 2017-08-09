@@ -26,3 +26,8 @@
 		max_sleep_seconds = 120 #系统最长睡眠时间
 		begin_index = 0 #如果从web抓取，设为0，如果从文件抓取，可以设置改参数进行断点执行，程序在执行过程中会不断更新这个值
 		cache_detail_url_file = /Users/baidu/data/cache_detail_url_file.json #web信息缓存文件路径
+
+2.task说明
+    （1）fetch_web_task.py    访问ebay将url信息保存至'cache_detail_url_file'
+    （2）ebay_crawer_task.py  读取'cache_detail_url_file'，解析入库
+    （3）update_db_task.py    读库，翻译字段，更新库
