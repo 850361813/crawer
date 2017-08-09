@@ -1,6 +1,5 @@
 0. 环境依赖
 	开发语言：python2.7.10
-	入口脚本：ebay_crawer.py
 
 1. 配置说明
 	配置文件：app.conf
