@@ -367,7 +367,7 @@ if __name__ == '__main__':
     layout_kitchen_key = 'Einbauküche'
     attribute_bathtub_key = 'Badewanne'
     attribute_bathroom_key = 'Dusche'
-    layout_lavatory_key = 'GästeWC'
+    layout_lavatory_key = 'Gäste-WC'
     attribute_disability_key = 'Barrierefrei'
     other_old_building_key = 'Altbau'
     other_new_building_key = 'Neubau'
