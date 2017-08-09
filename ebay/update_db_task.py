@@ -1,0 +1,12 @@
+# -*- coding: utf-8 -*-
+
+from dao import house_info_dao
+from ebay import config
+
+
+def start(db_config):
+    house_info_dao.update_column(db_config)
+
+if __name__ == '__main__':
+    app_config = config.load_db_config()
+    start(app_config)

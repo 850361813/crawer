@@ -3,73 +3,16 @@ import ConfigParser
 import os
 import random
 import time
-
 import re
 import json
-
 import datetime
-
 import sys
 from threading import Timer
 
 from dao import house_info_dao
+from ebay import config
 from http import http_fetcher
 from ebay.HouseInfo import HouseInfo, BaseInfo, ContactInfo, WebInfo, AdditionalInfo
-
-
-def load_db_config(filepath):
-    """
-    获取DB连接配置信息
-    :param filepath: 
-    :return: 
-    """
-    cp = ConfigParser.SafeConfigParser()
-    cp.read(filepath)
-
-    return {
-        'host': cp.get('db', 'host'),
-        'port': cp.get('db', 'port'),
-        'database': cp.get('db', 'database'),
-        'user': cp.get('db', 'user'),
-        'password': cp.get('db', 'pass'),
-        'charset': cp.get('db', 'charset'),
-        'use_unicode': True,
-        'get_warnings': True,
-    }
-
-
-def load_user_config(filepath):
-    """
-    配置网站用户信息
-    :param filepath: 
-    :return: 
-    """
-    cp = ConfigParser.SafeConfigParser()
-    cp.read(filepath)
-    return {
-        'email': cp.get('user', 'email'),
-        'password': cp.get('user', 'password'),
-        'home_url': cp.get('user', 'home_url'),
-        'base_url': cp.get('user', 'base_url'),
-    }
-
-
-def load_system_config(filepath):
-    """
-    配置系统信息
-    :param filepath: 
-    :return: 
-    """
-    cp = ConfigParser.SafeConfigParser()
-    cp.read(filepath)
-    return {
-        'fetch_num': cp.get('system', 'fetch_num'),
-        'min_sleep_seconds': cp.get('system', 'min_sleep_seconds'),
-        'max_sleep_seconds': cp.get('system', 'max_sleep_seconds'),
-        'is_from_web': cp.get('system', 'is_from_web'),
-        'begin_index': cp.get('system', 'begin_index'),
-        'cache_detail_url_file': cp.get('system', 'cache_detail_url_file'),
-    }
 
 
 def write_config(demain, key, filepath, value):
@@ -92,6 +35,7 @@ def sleep_random_second():
     随机暂停一段时间（针对网站反爬虫机制）
     :return: 
     """
+    print 'sleeping'
     sleep_time = random.randint(int(system_config['min_sleep_seconds']), int(system_config['max_sleep_seconds']))
     time.sleep(sleep_time)
     print 'sleep for second:' + str(sleep_time)
@@ -121,84 +65,22 @@ def read_data(file):
     return f.readlines()
 
 
-def get_first_class_urls(url):
+def get_visit_num(url):
     """
-    获取一级城市所有url模型
+    得到网站访问次数，默认为0
     :param url: 
     :return: 
     """
-    soup = handle_single_url(url)
-    ort_list = soup.find("ul", attrs={'data-overlayheadline': 'Ort'})
-    url_model_list = []
-
-    if ort_list is not None:
-        a_href_list = ort_list.find_all("li")
-        if a_href_list is not None:
-            for li in a_href_list:
-                pattern = re.compile(r'<li>([\s\S]*)href="([\s\S]*)">([\s\S]*)<([\s\S]*)a>([\s\S]*)li>')
-                match = pattern.match(li.encode("utf-8"))
-                url_model = dict()
-                url_model[url_key] = home_url + match.group(2)
-                url_model[city_key] = match.group(3)
-                url_model[zip_code_key] = ""
-                url_model_list.append(url_model)
-
-    return url_model_list
-
-
-def get_second_class_urls(url_model_list):
-    """
-    获取二级城市所有url模型
-    :param url_model_list: 
-    :return: 
-    """
-    second_url_models = []
-    if url_model_list is None:
-        return []
-    for url_model in url_model_list:
-        soup = handle_single_url(url_model[url_key])
-        ort = url_model[city_key]
-        ort_list = soup.find("ul", attrs={'data-overlayheadline': ort})
-        if ort_list is not None:
-            a_href_list = ort_list.find_all("li")
-            if a_href_list is not None:
-                for li in a_href_list:
-                    pattern = re.compile(r'<li>([\s\S]*)href="([\s\S]*)">([\s\S]*)<([\s\S]*)a>([\s\S]*)li>')
-                    match = pattern.match(li.encode("utf-8"))
-                    if match is not None:
-                        second_url_model = dict()
-                        second_url_model[url_key] = home_url + match.group(2)
-                        second_url_model[city_key] = url_model[city_key]
-                        second_url_model[region_kay] = match.group(3)
-                        second_url_model[zip_code_key] = ""
-                        second_url_models.append(second_url_model)
-
-    return second_url_models
-
-
-def get_detail_urls(url_model):
-    """
-    获取详情页面列表url模型信息
-    :param url_model: 
-    :return: 
-    """
-    url_model_list = []
-    if url_model is not None:
-        soup = handle_single_url(url_model[url_key])
-        detail_list = soup.find_all("h2", attrs={'class': 'text-module-begin'})
-        if detail_list is not None:
-            for detail in detail_list:
-                pattern = re.compile(r'<h2 class="text-module-begin"><a href="([\s\S]*)">([\s\S]*)<([\s\S]*)a></h2>')
-                match = pattern.match(detail.encode("utf-8"))
-                if match is not None:
-                    second_url_model = dict()
-                    second_url_model[url_key] = home_url + match.group(1)
-                    second_url_model[city_key] = url_model[city_key]
-                    second_url_model[region_kay] = url_model[region_kay]
-                    second_url_model[zip_code_key] = ""
-                    second_url_model[title_key] = match.group(2)
-                    url_model_list.append(second_url_model)
-    return url_model_list
+    last_num_str = url[url.rfind('/') + 1:len(url)]
+    adid = last_num_str[0:last_num_str.find('-')]
+    visit_url = 'https://www.ebay-kleinanzeigen.de/s-vac-inc-get.json?adId=' + adid
+    result = http_fetcher.get_html(visit_url)
+    pattern = re.compile(r'{"numVisits":([\d]*),"numVisitsStr":"([\d]*)"')
+    match = pattern.match(result.encode("UTF-8"))
+    if match is not None:
+        return match.group(1)
+    else:
+        return '0'
 
 
 def handle_single_url(url):
@@ -250,6 +132,7 @@ def resolve_web_info(url):
     """
     web_info = WebInfo('0', '')
     web_info.source_link = url
+    web_info.source_view_count = get_visit_num(url)
 
     return web_info
 
@@ -356,6 +239,7 @@ def resolve_additional_info(soup):
             city = match.group(3)
         else:
             city = ort_data
+            zip_code = '0'
         additional_info.zip_code = zip_code
         additional_info.city = city
 
@@ -421,10 +305,10 @@ def handle_detail_models(detail_models, begin_index, fetch_num):
                 print 'no house info find'
             if house_info is not None:
                 house_info_dao.insert(house_info, app_config)
-            write_config('system', 'begin_index', config_file, str(i))
+            write_config('system', 'begin_index', config.config_file, str(i))
 
 
-def start_from_file(begin_index, fetch_num):
+def start_from_file():
     """
     直接读取缓存文件，处理url
     :param begin_index: 
@@ -432,44 +316,7 @@ def start_from_file(begin_index, fetch_num):
     :return: 
     """
     detail_models = json.load(open(system_config['cache_detail_url_file'], "r"))
-    handle_detail_models(detail_models, begin_index, fetch_num)
-
-
-def start_from_web(fetch_num, begin_index=0):
-    """
-    从望着你抓取信息，进行处理，同时缓存信息到文件
-    :param fetch_num: 
-    :param begin_index: 
-    :return: 
-    """
-    total_detail_models = []
-    first_url_models = get_first_class_urls(base_url)
-    write_data("/Users/baidu/data/first_class_urls.json", json.dumps(first_url_models))
-    second_url_models = get_second_class_urls(first_url_models)
-    write_data("/Users/baidu/data/second_class_urls.json", json.dumps(second_url_models))
-    for second_uel_model in second_url_models:
-        detail_models = get_detail_urls(second_uel_model)
-        total_detail_models.extend(detail_models)
-        handle_detail_models(detail_models, begin_index, fetch_num)
-    write_data(app_config['cache_detail_url_file'], json.dumps(total_detail_models))
-
-
-def start():
-    """
-    程序开始核心方法
-    :return: 
-    """
-    is_from_web = system_config['is_from_web']
-    begin_index = int(system_config['begin_index'])
-    fetch_num = int(system_config['fetch_num'])
-    # 开始处理
-    if is_from_web == '1':
-        start_from_web(fetch_num)
-    elif is_from_web == '0':
-        start_from_file(begin_index, fetch_num)
-
-    # 更新库信息（翻译信息）
-    house_info_dao.update_column(app_config)
+    handle_detail_models(detail_models, sys_begin_index, sys_fetch_num)
 
 
 def test_single_url_model_insert(url):
@@ -488,10 +335,8 @@ def test_single_url_model_insert(url):
 
 if __name__ == '__main__':
 
-    config_file = '/Users/baidu/PycharmProjects/crawer/conf/app.conf'
-
     # 定时任务，自动登录检查
-    Timer(300, http_fetcher.login(config_file)).start()
+    Timer(300, http_fetcher.login()).start()
 
     # 程序参数表
     url_key = "url"
@@ -500,6 +345,7 @@ if __name__ == '__main__':
     zip_code_key = "zip_code"
     title_key = "title"
     soup_key = "soup"
+    page_key = "page"
     erstellungsdatum_key = 'Erstellungsdatum'  # 发布时间
     Anzeigennummer_key = 'Anzeigennummer'
     Zimmer_key = 'Zimmer'  # 出租类型
@@ -554,14 +400,15 @@ if __name__ == '__main__':
     attribute_map[attention_joint_rent] = '0' # 允许合租
     ort_key = "Ort"  # 地名，邮编，城市
 
-    # 加载app.conf配置文件
-    app_config = load_db_config(config_file)
-    system_config = load_system_config(config_file)
-    user_config = load_user_config(config_file)
+    app_config = config.load_db_config()
+    system_config = config.load_system_config()
+    user_config = config.load_user_config()
     home_url = user_config['home_url']
     base_url = user_config['base_url']
+    sys_begin_index = int(system_config['begin_index'])
+    sys_fetch_num = int(system_config['fetch_num'])
 
-    start()
-    print 'process finish, exit'
+    start_from_file()
+    print 'ebay crawer task process finish, exit'
     sys.exit(0)
 

@@ -124,7 +124,7 @@ def insert(house_info, config):
              default_int,
              default_int,
              default_int,
-             default_int,
+             house_info.webInfo.source_view_count,
              default_str,
              house_info.additionalInfo.zip_code,
              house_info.additionalInfo.city,

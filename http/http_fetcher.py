@@ -1,38 +1,26 @@
 # -*- coding: utf-8 -*-
-import ConfigParser
 import cookielib
 import urllib2
 
 import requests
 
 from bs4 import BeautifulSoup as bf
+from ebay import config
 
 session_requests = requests.session()
 
 
-def load_user_config(filepath):
-    cp = ConfigParser.SafeConfigParser()
-    cp.read(filepath)
-    return {
-        'email': cp.get('user', 'email'),
-        'password': cp.get('user', 'password'),
-        'home_url': cp.get('user', 'home_url'),
-        'base_url': cp.get('user', 'base_url'),
-        'login_url': cp.get('user', 'login_url'),
-    }
-
-
-def login(config_file):
+def login():
     """
     网站登录
     :return: 
     """
-    config = load_user_config(config_file)
+    user_config = config.load_user_config()
 
-    url = config['login_url']
-    home_url = config['home_url']
-    email = config['email']
-    password = config['password']
+    url = user_config['login_url']
+    home_url = user_config['home_url']
+    email = user_config['email']
+    password = user_config['password']
     cookie = cookielib.CookieJar()
     handler = urllib2.HTTPCookieProcessor(cookie)
     opener = urllib2.build_opener(handler, urllib2.HTTPHandler)
@@ -60,7 +48,7 @@ def login(config_file):
     postData['_csrf'] = csrf_raw.attrs['value'].encode("UTF-8")
     result = session_requests.post(login_url, postData, headers)
     if result.status_code == 200:
-        print 'login success'
+        print 'login success for user: ' + email
 
 
 def get_html(url):

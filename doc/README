@@ -1,0 +1,28 @@
+0. 环境依赖
+	开发语言：python2.7.10
+	入口脚本：ebay_crawer.py
+
+1. 配置说明
+	配置文件：app.conf
+	（1）数据库配置参数
+		[db]
+		host = localhost
+		port = 3306
+		database = product_gerdorm
+		user = root
+		pass = 123456
+		charset = utf8
+	（2）用户配置信息
+		[user]
+		email = ebay注册用户名
+		password = ebay注册密码
+		home_url = ebay主页
+		base_url = ebay抓取主页
+		login_url = 登录页面
+	（3）系统配置
+		[system]
+		fetch_num = 30 #url抓取批量
+		min_sleep_seconds = 30 #系统最短睡眠时间
+		max_sleep_seconds = 120 #系统最长睡眠时间
+		begin_index = 0 #如果从web抓取，设为0，如果从文件抓取，可以设置改参数进行断点执行，程序在执行过程中会不断更新这个值
+		cache_detail_url_file = /Users/baidu/data/cache_detail_url_file.json #web信息缓存文件路径
