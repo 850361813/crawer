@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import os
+import urllib
+import urllib2
 from multiprocessing import Process
 from collections import defaultdict
 
@@ -10,9 +12,4 @@ def run_proc(name):
 
 
 if __name__ == '__main__':
-    print('Parent process %s.' % os.getpid())
-    p = Process(target=run_proc, args=('test',))
-    print('Child process will start.')
-    p.start()
-    p.join()
-    print('Child process end.')
+    urllib.urlretrieve('http://www.chinamoney.com.cn/fe/CMS5_G20306002Resource?info=18105219;res=1460995568251290423926;download=', '/Users/baidu/text.pdf')

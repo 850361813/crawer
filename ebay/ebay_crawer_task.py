@@ -187,9 +187,9 @@ def resolve_additional_info(soup):
     for i in xrange(0, len(final_data_list) - 1, 2):
         map_data_value[final_data_list[i]] = final_data_list[i + 1].strip()
     if map_data_value.has_key(Wohnflxa4che_key):
-        additional_info.usable_area = map_data_value[Wohnflxa4che_key]
+        additional_info.usable_area = map_data_value[Wohnflxa4che_key].replace('.', '')
     if map_data_value.has_key(Zimmer_key):
-        additional_info.room_amount = map_data_value[Zimmer_key]
+        additional_info.room_amount = map_data_value[Zimmer_key].replace('.', '')
     if map_data_value.has_key(erstellungsdatum_key):
         # 时间格式转换 '05.08.2017' 转 int
         time_array = time.strptime(map_data_value[erstellungsdatum_key], "%d.%m.%Y")
@@ -197,13 +197,13 @@ def resolve_additional_info(soup):
     if map_data_value.has_key(Nebenkosten_key):
         additional_info.rent_fee_addon = map_data_value[Nebenkosten_key]
     if map_data_value.has_key(Genossenschaftsanteile_key):
-        additional_info.rent_fee_deposit = map_data_value[Genossenschaftsanteile_key]
+        additional_info.rent_fee_deposit = map_data_value[Genossenschaftsanteile_key].replace('.', '')
     if map_data_value.has_key(Heizungsart_key):
         additional_info.attribute_heating = '1'
     if map_data_value.has_key(warmmiete_in_euro_key):
-        additional_info.rent_fee_hot = map_data_value[warmmiete_in_euro_key]
+        additional_info.rent_fee_hot = map_data_value[warmmiete_in_euro_key].replace('.', '')
     if map_data_value.has_key(heizkosten_key):
-        additional_info.rent_fee_other = map_data_value[heizkosten_key]
+        additional_info.rent_fee_other = map_data_value[heizkosten_key].replace('.', '')
 
     # 设备
     if map_data_value.has_key(Ausstattung_key):
@@ -221,6 +221,7 @@ def resolve_additional_info(soup):
         additional_info.other_new_building = attribute_map[other_new_building_key]
         additional_info.other_old_building = attribute_map[other_old_building_key]
         additional_info.feature_elevator = attribute_map[feature_elevator_key]
+        additional_info.floor_current = attribute_map[floor_current_key]
         additional_info.feature_basement = attribute_map[feature_basement_key]
         additional_info.feature_loft = attribute_map[feature_loft_key]
         additional_info.attention_welfare_in = attribute_map[attention_welfare_in]
@@ -230,6 +231,7 @@ def resolve_additional_info(soup):
         additional_info.attention_joint_rent = attribute_map[attention_joint_rent]
     if map_data_value.has_key(ort_key):
         ort_data = map_data_value[ort_key]
+        additional_info.location_name = ort_data # location_name
         # 城市 邮编
         ort_data = ort_data.replace(",", "")
         pattern = re.compile(r'([\s\S]*)([\d]{5})([\s\S]*)')
@@ -373,6 +375,7 @@ if __name__ == '__main__':
     other_new_building_key = 'Neubau'
     feature_elevator_key = 'Aufzug'
     feature_basement_key = 'Keller'
+    floor_current_key = 'Etage'
     feature_loft_key = 'Dachboden'
     attention_welfare_in = 'Wohnberechtigungsscheinbenötigt'
     feature_parking_space = 'Garage/Stellplatz'
@@ -392,6 +395,7 @@ if __name__ == '__main__':
     attribute_map[other_new_building_key] = '0' # 新建筑
     attribute_map[feature_elevator_key] = '0' # 电梯
     attribute_map[feature_basement_key] = '0' # 地下室
+    attribute_map[floor_current_key] = '0'  # 楼层
     attribute_map[feature_loft_key] = '0' # 阁楼
     attribute_map[attention_welfare_in] = '0' # 需福利准入证
     attribute_map[feature_parking_space] = '0' # 停车位

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import mysql.connector
 from common import google_translate
+from common.google_position import get_geo_for_address
 
 
 def update_column(config):
@@ -9,8 +10,9 @@ def update_column(config):
     :param config: 
     :return: 
     """
-    sql = 'select id, title_ge, description_ge from dcs_dorm'
-    update_sql = 'update dcs_dorm set title = %s , title_en = %s , description = %s, description_en = %s where id = %s;'
+    sql = 'select id, title_ge, description_ge , city from dcs_dorm'
+    update_sql = 'update dcs_dorm set title = %s , title_en = %s , description = %s, description_en = %s, ' \
+                 'location_longitude = %s,location_latitude = %s where id = %s;'
     cnx = mysql.connector.connect(**config)
     cur = cnx.cursor()
 
@@ -22,11 +24,19 @@ def update_column(config):
         title_ge = data[1]
         description_ge = data[2]
         id = data[0]
+
+        # 翻译信息
         title = google_translate.google_translate_DtoC(title_ge.encode("UTF-8"))
         title_en = google_translate.google_translate_DtoE(title_ge.encode("UTF-8"))
         description = google_translate.google_translate_DtoC(description_ge.encode("UTF-8"))
         description_en = google_translate.google_translate_DtoE(description_ge.encode("UTF-8"))
-        param = (title, title_en, description, description_en, id)
+
+        # 经纬度信息
+        city = data[3]
+        position = get_geo_for_address(city)
+        location_longitude = position['lng']
+        location_latitude = position['lat']
+        param = (title, title_en, description, description_en, location_longitude, location_latitude, id)
         cur.execute(update_sql, param)
         cnx.commit()
         print 'update data for id : ' + str(id)
@@ -34,7 +44,6 @@ def update_column(config):
 
 def insert(house_info, config):
     default_int = '0'
-    default_float = '0.00'
     default_str = ''
     sql = '''INSERT INTO dcs_dorm 
            (title, title_ge, title_en, subtitle, subtitle_ge,
@@ -125,7 +134,7 @@ def insert(house_info, config):
              default_int,
              default_int,
              house_info.webInfo.source_view_count,
-             default_str,
+             house_info.additionalInfo.location_name,
              house_info.additionalInfo.zip_code,
              house_info.additionalInfo.city,
              default_int,

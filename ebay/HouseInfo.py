@@ -72,6 +72,7 @@ class AdditionalInfo:
         self.feature_elevator = '0'
         self.feature_basement = '0'
         self.feature_loft = '0'
+        self.location_name = '0'
         self.attention_welfare_in = '0'
         self.feature_parking_space = '0'
         self.feature_garden = '0'

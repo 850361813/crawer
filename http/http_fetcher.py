@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import cookielib
+import urllib
 import urllib2
 
 import requests
@@ -63,6 +64,10 @@ def get_soup(url):
 
 def get_soup_from_html(html):
     return bf(html, "html.parser")
+
+
+def download(url, path):
+    urllib.urlretrieve(url, path)
 
 if __name__ == '__main__':
     login()
