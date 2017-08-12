@@ -39,7 +39,12 @@
     （2）配置任务
         参考 2
     （3）执行任务
+        cd ${home_dir}/crawer
         第一步：执行task 1, 完整执行，ebay信息缓存到本地
+        python fetch_web_task.py
         第二步：执行task 2，可以多次重跑，每次从上一次结束的位置开始（总时间比较长）
+        python ebay_crawer_task.py
         第三步：执行task 3，一次性执行所有数据
+        python update_geocoding_task.py
         第四步：执行task 4,一次性执行所有数据
+        python update_translation_task.py
