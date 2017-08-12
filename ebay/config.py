@@ -1,11 +1,17 @@
 # -*- coding: utf-8 -*-
 import ConfigParser
+import os
 
-config_file = '/Users/baidu/PycharmProjects/crawer/conf/app.conf'
+config_file = 'app.conf'
 
 """
 配置解析服务
 """
+
+
+def get_config_dir():
+    home_dir = os.path.abspath(os.getcwd() + os.sep + '..')
+    return home_dir + os.sep + 'conf' + os.sep
 
 
 def load_db_config():
@@ -14,7 +20,7 @@ def load_db_config():
     :return: 
     """
     cp = ConfigParser.SafeConfigParser()
-    cp.read(config_file)
+    cp.read(get_config_dir() + config_file)
 
     return {
         'host': cp.get('db', 'host'),
@@ -34,7 +40,7 @@ def load_user_config():
     :return: 
     """
     cp = ConfigParser.SafeConfigParser()
-    cp.read(config_file)
+    cp.read(get_config_dir() + config_file)
     return {
         'email': cp.get('user', 'email'),
         'password': cp.get('user', 'password'),
@@ -50,7 +56,7 @@ def load_system_config():
     :return: 
     """
     cp = ConfigParser.SafeConfigParser()
-    cp.read(config_file)
+    cp.read(get_config_dir() + config_file)
     return {
         'fetch_num': cp.get('system', 'fetch_num'),
         'min_sleep_seconds': cp.get('system', 'min_sleep_seconds'),
