@@ -31,3 +31,9 @@
     （2）ebay_crawer_task.py  读取'cache_detail_url_file'，解析入库
     （3）update_geocoding_task.py    更新经纬度信息
     （4）update_translation_task.py 更新翻译字段信息
+
+3，任务执行说明
+    第一步：执行task 1, 完整执行，ebay信息缓存到本地
+    第二步：执行task 2，可以多次重跑，每次从上一次结束的位置开始（总时间比较长）
+    第三步：执行task 3，一次性执行所有数据
+    第四步：执行task 4,一次性执行所有数据

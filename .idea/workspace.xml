@@ -1,20 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4014170e-fac1-4ada-8656-8985e1c017b3" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ebay/update_translation_task.py" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/common/google_position.py" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/common/google_translate.py" afterPath="$PROJECT_DIR$/common/google_service.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/ebay/update_db_task.py" afterPath="$PROJECT_DIR$/ebay/update_geocoding_task.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/conf/app.conf" afterPath="$PROJECT_DIR$/conf/app.conf" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dao/house_info_dao.py" afterPath="$PROJECT_DIR$/dao/house_info_dao.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/README" afterPath="$PROJECT_DIR$/doc/README" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ebay/config.py" afterPath="$PROJECT_DIR$/ebay/config.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ebay/ebay_crawer_task.py" afterPath="$PROJECT_DIR$/ebay/ebay_crawer_task.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ebay/fetch_web_task.py" afterPath="$PROJECT_DIR$/ebay/fetch_web_task.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/test_google_position.py" afterPath="$PROJECT_DIR$/test/test_google_position.py" />
-    </list>
+    <list default="true" id="4014170e-fac1-4ada-8656-8985e1c017b3" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -100,8 +87,8 @@
       <file leaf-file-name="house_info_dao.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/dao/house_info_dao.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="26" column="26" lean-forward="true" selection-start-line="26" selection-start-column="26" selection-end-line="26" selection-end-column="26" />
+            <state relative-caret-position="102">
+              <caret line="19" column="22" lean-forward="true" selection-start-line="19" selection-start-column="22" selection-end-line="19" selection-end-column="22" />
               <folding>
                 <element signature="e#24#46#0" expanded="true" />
                 <marker date="1502541670000" expanded="true" signature="211:260" ph="select id, t... dcs_dorm" />
@@ -741,15 +728,14 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1280" height="739" extended-state="6" />
-    <editor active="true" />
+    <frame x="0" y="23" width="1280" height="739" extended-state="1" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26429674" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26429674" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.0" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4992272" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19466881" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32612056" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1141,8 +1127,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/dao/house_info_dao.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="26" column="26" lean-forward="true" selection-start-line="26" selection-start-column="26" selection-end-line="26" selection-end-column="26" />
+        <state relative-caret-position="102">
+          <caret line="19" column="22" lean-forward="true" selection-start-line="19" selection-start-column="22" selection-end-line="19" selection-end-column="22" />
           <folding>
             <element signature="e#24#46#0" expanded="true" />
             <marker date="1502541670000" expanded="true" signature="211:260" ph="select id, t... dcs_dorm" />
