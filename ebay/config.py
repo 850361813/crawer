@@ -3,6 +3,10 @@ import ConfigParser
 
 config_file = '/Users/baidu/PycharmProjects/crawer/conf/app.conf'
 
+"""
+配置解析服务
+"""
+
 
 def load_db_config():
     """

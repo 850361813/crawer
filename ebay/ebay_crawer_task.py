@@ -15,6 +15,11 @@ from http import http_fetcher
 from ebay.HouseInfo import HouseInfo, BaseInfo, ContactInfo, WebInfo, AdditionalInfo
 
 
+"""
+解析ebay web信息任务
+"""
+
+
 def write_config(demain, key, filepath, value):
     """
     更新配置信息

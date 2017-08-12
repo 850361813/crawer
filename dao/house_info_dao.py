@@ -1,18 +1,21 @@
 # -*- coding: utf-8 -*-
 import mysql.connector
-from common import google_translate
-from common.google_position import get_geo_for_address
+from common import google_service
 
 
-def update_column(config):
+"""
+数据交互服务
+"""
+
+
+def update_translation_column(config):
     """
     更新翻译字段
     :param config: 
     :return: 
     """
-    sql = 'select id, title_ge, description_ge , city from dcs_dorm'
-    update_sql = 'update dcs_dorm set title = %s , title_en = %s , description = %s, description_en = %s, ' \
-                 'location_longitude = %s,location_latitude = %s where id = %s;'
+    sql = 'select id, title_ge, description_ge from dcs_dorm'
+    update_sql = 'update dcs_dorm set title = %s , title_en = %s , description = %s, description_en = %s where id = %s;'
     cnx = mysql.connector.connect(**config)
     cur = cnx.cursor()
 
@@ -26,20 +29,43 @@ def update_column(config):
         id = data[0]
 
         # 翻译信息
-        title = google_translate.google_translate_DtoC(title_ge.encode("UTF-8"))
-        title_en = google_translate.google_translate_DtoE(title_ge.encode("UTF-8"))
-        description = google_translate.google_translate_DtoC(description_ge.encode("UTF-8"))
-        description_en = google_translate.google_translate_DtoE(description_ge.encode("UTF-8"))
+        title = google_service.google_translate_DtoC(title_ge.encode("UTF-8").replace('&', ''))
+        title_en = google_service.google_translate_DtoE(title_ge.encode("UTF-8").replace('&', ''))
+        description = google_service.google_translate_DtoC(description_ge.encode("UTF-8").replace('&', ''))
+        description_en = google_service.google_translate_DtoE(description_ge.encode("UTF-8").replace('&', ''))
 
-        # 经纬度信息
-        city = data[3]
-        position = get_geo_for_address(city)
-        location_longitude = position['lng']
-        location_latitude = position['lat']
-        param = (title, title_en, description, description_en, location_longitude, location_latitude, id)
+        param = (title, title_en, description, description_en, id)
         cur.execute(update_sql, param)
         cnx.commit()
         print 'update data for id : ' + str(id)
+
+
+def update_geocoding_info(config):
+    """
+    更新经纬度信息
+    :param config: 
+    :return: 
+    """
+    sql = 'select id, city from dcs_dorm'
+    update_sql = 'update dcs_dorm set location_longitude = %s,location_latitude = %s where id = %s;'
+    cnx = mysql.connector.connect(**config)
+    cur = cnx.cursor()
+
+    cur.execute(sql)
+    result = cur.fetchall()
+    if result is None:
+        return
+    for data in result:
+        city = data[1]
+        id = data[0]
+        # 经纬度信息
+        position = google_service.get_geo_for_address(city.encode('utf-8'))
+        location_longitude = position['lng']
+        location_latitude = position['lat']
+        param = (location_longitude, location_latitude, id)
+        cur.execute(update_sql, param)
+        cnx.commit()
+        print 'update geocoding data for id : ' + str(id)
 
 
 def insert(house_info, config):

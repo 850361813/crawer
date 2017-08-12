@@ -15,6 +15,12 @@ from threading import Timer
 from ebay import config
 from http import http_fetcher
 
+
+"""
+爬取ebay web信息任务
+"""
+
+
 init_fetch_num = 0
 
 

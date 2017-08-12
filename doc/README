@@ -29,4 +29,5 @@
 2.task说明
     （1）fetch_web_task.py    访问ebay将url信息保存至'cache_detail_url_file'
     （2）ebay_crawer_task.py  读取'cache_detail_url_file'，解析入库
-    （3）update_db_task.py    读库，翻译字段，更新库
+    （3）update_geocoding_task.py    更新经纬度信息
+    （4）update_translation_task.py 更新翻译字段信息
