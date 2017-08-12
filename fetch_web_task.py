@@ -159,15 +159,25 @@ def get_detail_urls(url_model):
         detail_list = soup.find_all("h2", attrs={'class': 'text-module-begin'})
         if detail_list is not None:
             for detail in detail_list:
-                pattern = re.compile(r'<h2 class="text-module-begin"><a href="([\s\S]*)">([\s\S]*)<([\s\S]*)a></h2>')
+                pattern = re.compile(r'<h2 class="text-module-begin"><a([\s\S]*)href="([\s\S]*)">([\s\S]*)<([\s\S]*)a></h2>')
+                pattern2 = re.compile(r'<h2 class="text-module-begin"><a([\s\S]*)href="([\s\S]*)"([\s\S]*)name([\s\S]*)>([\s\S]*)<([\s\S]*)a></h2>')
                 match = pattern.match(detail.encode("utf-8"))
-                if match is not None:
+                match2 = pattern2.match(detail.encode("utf-8"))
+                if match2 is not None:
                     second_url_model = dict()
-                    second_url_model[url_key] = home_url + match.group(1)
+                    second_url_model[url_key] = home_url + match2.group(2)
                     second_url_model[city_key] = url_model[city_key]
                     second_url_model[region_kay] = url_model[region_kay]
                     second_url_model[zip_code_key] = ""
-                    second_url_model[title_key] = match.group(2)
+                    second_url_model[title_key] = match2.group(3)
+                    url_model_list.append(second_url_model)
+                elif match is not None:
+                    second_url_model = dict()
+                    second_url_model[url_key] = home_url + match.group(2)
+                    second_url_model[city_key] = url_model[city_key]
+                    second_url_model[region_kay] = url_model[region_kay]
+                    second_url_model[zip_code_key] = ""
+                    second_url_model[title_key] = match.group(3)
                     url_model_list.append(second_url_model)
     return url_model_list
 

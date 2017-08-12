@@ -312,7 +312,7 @@ def handle_detail_models(detail_models, begin_index, fetch_num):
                 print 'no house info find'
             if house_info is not None:
                 house_info_dao.insert(house_info, app_config)
-            write_config('system', 'begin_index', config.config_file, str(i))
+            write_config('system', 'begin_index', config.get_config_dir() + config.config_file, str(i))
 
 
 def start_from_file():
