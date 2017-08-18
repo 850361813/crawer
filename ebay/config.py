@@ -11,7 +11,6 @@ config_file = 'app.conf'
 
 def get_config_dir():
     home_dir = os.path.abspath(os.getcwd() + os.sep + '.')
-    print 'home dir : ' + home_dir
     return home_dir + os.sep + 'conf' + os.sep
 
 

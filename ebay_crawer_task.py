@@ -122,7 +122,7 @@ def resolve_base_info(soup):
                 image_url_str.append(image.div.img['data-imgsrc'])
             baseInfo.image_list = ','.join(image_url_str)
 
-    description = soup.find("section", id="viewad-description").section.p.get_text()
+    description = soup.find("section", id="viewad-description").section.p.get_text('\n')
     if description is not None:
         baseInfo.description = description.encode("utf-8").strip()
 
