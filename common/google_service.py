@@ -14,8 +14,22 @@ google服务
 
 
 def getHTMLText(url):
+
+    headers = {'dnt': '1',
+               'Accept-Encoding': 'gzip, deflate, br',
+               'Accept-Language': 'zh-CN,zh;q=0.8,en;q=0.6,en-US;q=0.4',
+               'Cache-Control': 'max-age=0',
+               'Connection': 'keep-alive',
+               'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36',
+               'x-chrome-uma-enabled': '1',
+               'accept': '*/*',
+               'referer': 'https://translate.google.cn/',
+               'authority': 'translate.google.cn',
+               'cookie': 'NID=110=WQmBV_YldgQwkIhhlwWCpHWcfAwNmeO74XBdZAjKLzKDk7n-9KXm7mO-YT5PZRKN719NaBmtOh8VtpSEgiZ8VXjq7W-LEhpWQ5C8UTu6DuBSg4v4XcyUDEPyMUcEdMyD; _ga=GA1.3.1021991621.1502114805; _gid=GA1.3.76548753.1503071394',
+               'x-client-data': 'CIi2yQEIpbbJAQjEtskBCPqcygEIqZ3KAQjensoB'}
+
     try:
-        r = requests.get(url, timeout=30)
+        r = requests.get(url, timeout=30, headers=headers)
         r.raise_for_status()
         return r.text
     except:

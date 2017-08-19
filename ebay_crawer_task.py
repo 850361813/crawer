@@ -209,6 +209,8 @@ def resolve_additional_info(soup):
         additional_info.rent_fee_hot = map_data_value[warmmiete_in_euro_key].replace('.', '')
     if map_data_value.has_key(heizkosten_key):
         additional_info.rent_fee_other = map_data_value[heizkosten_key].replace('.', '')
+    if map_data_value.has_key(floor_current_key):
+        additional_info.floor_current = map_data_value[floor_current_key]
 
     # 设备
     if map_data_value.has_key(Ausstattung_key):
@@ -226,7 +228,6 @@ def resolve_additional_info(soup):
         additional_info.other_new_building = attribute_map[other_new_building_key]
         additional_info.other_old_building = attribute_map[other_old_building_key]
         additional_info.feature_elevator = attribute_map[feature_elevator_key]
-        additional_info.floor_current = attribute_map[floor_current_key]
         additional_info.feature_basement = attribute_map[feature_basement_key]
         additional_info.feature_loft = attribute_map[feature_loft_key]
         additional_info.attention_welfare_in = attribute_map[attention_welfare_in]
@@ -236,7 +237,7 @@ def resolve_additional_info(soup):
         additional_info.attention_joint_rent = attribute_map[attention_joint_rent]
     if map_data_value.has_key(ort_key):
         ort_data = map_data_value[ort_key]
-        additional_info.location_name = ort_data # location_name
+        additional_info.location_name = re.sub(r"\s{2,}", " ", ort_data) # location_name
         # 城市 邮编
         ort_data = ort_data.replace(",", "")
         pattern = re.compile(r'([\s\S]*)([\d]{5})([\s\S]*)')
@@ -248,7 +249,7 @@ def resolve_additional_info(soup):
             city = ort_data
             zip_code = '0'
         additional_info.zip_code = zip_code
-        additional_info.city = city
+        additional_info.city = city.strip()
 
 
     # 租金
