@@ -30,10 +30,13 @@ def update_translation_column(config):
 
         # 翻译信息
         title = google_service.google_translate_DtoC(title_ge.encode("UTF-8").replace('&', ''))
+        print title
         title_en = google_service.google_translate_DtoE(title_ge.encode("UTF-8").replace('&', ''))
+        print title_en
         description = google_service.google_translate_DtoC(description_ge.encode("UTF-8").replace('&', ''))
+        print description
         description_en = google_service.google_translate_DtoE(description_ge.encode("UTF-8").replace('&', ''))
-
+        print description_en
         param = (title, title_en, description, description_en, id)
         cur.execute(update_sql, param)
         cnx.commit()
