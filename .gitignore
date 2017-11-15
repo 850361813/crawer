@@ -1,0 +1,19 @@
+# idea file
+
+.idea
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# mac os file
+.DS_Store
+
+# tmp file
+*~
+.*~
+target
+output
+logs
+static
+
